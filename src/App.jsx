@@ -48,7 +48,7 @@ export default function App() {
   useEffect(() => { if (!msg) return; const t = setTimeout(() => setMsg(''), 2800); return () => clearTimeout(t) }, [msg]);
   const mut = f => { const n = structuredClone(d); const r = f(n); setD(n); return r };
   const user = d.users.find(u => u.id === meId);
-  if (!user) return <div className="login card"><Logo s={110} /><h2>Noun Travel</h2><p style={{ color: 'var(--m)' }}>Al Barka Line Express · Le Plaisir de Voyager</p>
+  if (!user) return <div className="login card"><Logo s={110} /><h2>Al Barka</h2><p style={{ color: 'var(--m)' }}>Al Barka Line Express · Le Plaisir de Voyager</p>
     <form onSubmit={e => {
       e.preventDefault(); const f = Object.fromEntries(new FormData(e.target)); const u = d.users.find(x => x.login === f.l && x.pass === f.p);
       if (u) { localStorage.setItem('nt_me', u.id); setMeId(u.id); setTab(u.role === 'admin' ? 'dash' : 'vente') } else setLg('Identifiant ou mot de passe incorrect.')
@@ -114,7 +114,7 @@ export default function App() {
         {isA ? <label>Agence active<select value={ag} onChange={e => setAgSel(e.target.value)}>{d.agencies.map(a => <option key={a.id} value={a.id}>{a.nom}</option>)}</select></label> : <div><small>Agence</small><br /><b>{nomAg(ag)}</b></div>}
         <div><small>Quota agence</small><br /><b>{u}/{q}</b><div className={'bar' + (u >= q ? ' full' : '')}><i style={{ width: Math.min(100, q ? u / q * 100 : 100) + '%' }} /></div></div>
         <div><small>Capacité du bus</small><br /><b>{t}/{D.capacite}</b><div className={'bar' + (t >= D.capacite ? ' full' : '')}><i style={{ width: t / D.capacite * 100 + '%' }} /></div></div></div>
-      {full&&<div className="alert"><Icon name="alert"/> {t>=D.capacite?'Départ complet.':'Quota de l’agence atteint.'} Les ventes sont bloquées automatiquement.</div>}
+      {full && <div className="alert"><Icon name="alert" /> {t >= D.capacite ? 'Départ complet.' : 'Quota de l’agence atteint.'} Les ventes sont bloquées automatiquement.</div>}
       <div className="card"><h2>{D.type === 'NUMEROTE' ? 'Plan du bus · sièges numérotés' : 'Vente au compteur global'}</h2>
         {D.type === 'NUMEROTE' ? <>
           <div className="legend">{[['Disponible', 'var(--g)'], ['Sélectionné', 'var(--g)'], ['Vendu', '#94A3B8'], ['Vendu ailleurs', 'var(--b)'], ['En attente synchro', 'var(--o)'], ['Conflit', '#B91C1C']].map(([l, c]) => <span key={l} style={{ '--c': c }}>{l}</span>)}</div>
@@ -206,7 +206,7 @@ export default function App() {
   };
 
   return <div className="shell">
-    <aside className="side"><div className="brand"><Logo /><div>Noun Travel<small>Al Barka Line Express</small></div></div>
+    <aside className="side"><div className="brand"><Logo /><div>Al Barka<small>Al Barka Line Express</small></div></div>
       <nav className="nav-links">{tabs.map(k => <button key={k} className={cur === k ? 'on' : ''} onClick={() => setTab(k)}><Icon name={TABS[k][0]} />{TABS[k][1]}</button>)}</nav>
       <div className="side-footer">
         <button className={'tools-toggle' + (toolsOpen ? ' expanded' : '')} aria-expanded={toolsOpen} onClick={() => setToolsOpen(!toolsOpen)}><Icon name="settings" /><span>Actions & compte</span><span className="toggle-chevron">{toolsOpen ? '−' : '+'}</span></button>
